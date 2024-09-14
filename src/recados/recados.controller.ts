@@ -10,13 +10,16 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { RecadosService } from './recados.service';
+import { RecadoEntity } from './entities/recado.entity';
 
 @Controller('recados')
 export class RecadosController {
+  constructor(private readonly recadosService: RecadosService) {}
   @HttpCode(HttpStatus.OK)
   @Get()
   findAll() {
-    return 'Essa rota retorna todos os recados';
+    return this.recadosService.findAll();
   }
 
   @HttpCode(HttpStatus.OK)
@@ -27,23 +30,22 @@ export class RecadosController {
   }
 
   @Get(':id')
-  findOne(@Param('id') parametros: any) {
-    console.log(parametros);
-    return `Essa rota retorna o recado com o ID ${parametros}`;
+  findOne(@Param('id') parametros: number) {
+    return this.recadosService.findOne(parametros);
   }
 
   @Post()
-  create(@Body() bodyParam: any) {
-    return bodyParam;
+  create(@Body() bodyParam: RecadoEntity) {
+    return this.recadosService.create(bodyParam);
   }
 
   @Patch(':id')
-  update(@Param() param: any, @Body() bodyParam: any) {
-    return { param, bodyParam };
+  update(@Param() param: number, @Body() bodyParam: RecadoEntity) {
+    return this.recadosService.update(param, bodyParam);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return `Essa rota apaga o recado com o ID ${id}`;
+  remove(@Param('id') id: number) {
+    return this.recadosService.remove(id);
   }
 }
