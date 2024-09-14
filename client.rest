@@ -24,3 +24,48 @@ GET {{baseUrl}}/conteitos-automatico
 
 # @name ConceitosManualControllerService
 GET {{baseUrl}}/conceitos-manual/teste
+
+### RecadosControllerFindAll
+
+# @name RecadosControllerFindAll
+GET {{baseUrl}}/recados
+
+### RecadosControllerFindOne
+
+# @name RecadosControllerFindOne
+GET {{baseUrl}}/recados/10
+
+### RecadosControllerFindOne
+
+# @name RecadosControllerInsert
+POST  {{baseUrl}}/recados
+Content-Type: application/json
+
+{
+    "recado": "este e o recado que estou enviando",
+    "nova chave": "outro valor"
+}
+
+### RecadosControllerFindOne
+
+# @name RecadosControllerInsert
+PATCH   {{baseUrl}}/recados/1
+Content-Type: application/json
+
+{
+    "recado": "este e o recado que estou enviando",
+    "nova chave": "outro valor"
+}
+
+### RecadosControllerFindOne
+
+# @name RecadosControllerFindOne
+DELETE {{baseUrl}}/recados/10
+
+
+### RecadosControllerFindAll
+
+# @name RecadosControllerFindAll
+GET {{baseUrl}}/recados/q
+?limit=100
+&offset=100
