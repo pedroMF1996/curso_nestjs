@@ -19,3 +19,8 @@ GET {{baseUrl}}/conceitos-manual
 
 # @name ConteitosAutomaticoController
 GET {{baseUrl}}/conteitos-automatico
+
+### ConceitosManualControllerService
+
+# @name ConceitosManualControllerService
+GET {{baseUrl}}/conceitos-manual/teste
