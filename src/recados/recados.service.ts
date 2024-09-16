@@ -1,5 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { RecadoEntity } from './entities/recado.entity';
+import { CreateRecadoDto } from './dto/create-recado.dto';
+import { UpdateReadDto } from './dto/update-recado.dto';
 
 @Injectable()
 export class RecadosService {
@@ -20,22 +26,34 @@ export class RecadosService {
   }
 
   findOne(id: number): RecadoEntity {
-    const recado = this.recados.find((x) => x.id === id);
+    const recado = this.recados.find(x => x.id === id);
 
     if (recado) return recado;
 
     this.throwNotFoundError();
   }
 
-  create(recado: RecadoEntity): RecadoEntity {
-    this.recados.push({ id: ++this.lastId, ...recado });
+  create(recado: CreateRecadoDto): RecadoEntity {
+    this.recados.push({
+      id: ++this.lastId,
+      ...recado,
+      lido: false,
+      data: new Date(),
+    });
 
-    return this.recados.find((x) => x.id === this.lastId);
+    return this.recados.find(x => x.id === this.lastId);
   }
 
-  update(id: number, recadoAtualizado: RecadoEntity) {
-    const idExistente = this.recados.findIndex((x) => x.id === id);
+  update(id: number, recadoAtualizado: UpdateReadDto) {
+    console.log(id);
 
+    if (!this.recados || !Array.isArray(this.recados)) {
+      throw new BadRequestException('lista nao inicializada');
+    }
+
+    const idExistente = this.recados.findIndex(x => x.id === Number(id));
+    console.log(this.recados);
+    console.log(idExistente);
     if (idExistente < 0) this.throwNotFoundError();
 
     const recadoASerAtualizado = this.recados[idExistente];
@@ -47,7 +65,7 @@ export class RecadosService {
   }
 
   remove(id: number) {
-    const recadoExcluido = this.recados.findIndex((x) => x.id === id);
+    const recadoExcluido = this.recados.findIndex(x => x.id === id);
 
     if (recadoExcluido < 0) this.throwNotFoundError();
 
