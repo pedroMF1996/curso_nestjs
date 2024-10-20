@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsNotEmpty, IsString, MinLength } from 'class-validator';
 
 export class CreateRecadoDto {
   @IsString({
@@ -7,19 +7,9 @@ export class CreateRecadoDto {
   @IsNotEmpty()
   @MinLength(2)
   readonly texto: string;
-  @IsString({
-    message: 'De deve ser do tipo string',
-  })
-  @IsNotEmpty()
-  @MinLength(2)
-  @MaxLength(50)
-  readonly de: string;
 
-  @IsString({
-    message: 'Para deve ser do tipo string',
-  })
   @IsNotEmpty()
-  @MinLength(2)
-  @MaxLength(50)
-  readonly para: string;
+  readonly deId: number;
+  @IsNotEmpty()
+  readonly paraId: number;
 }

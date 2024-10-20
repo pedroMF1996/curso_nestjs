@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
@@ -13,25 +14,25 @@ import {
 import { RecadosService } from './recados.service';
 import { CreateRecadoDto } from './dto/create-recado.dto';
 import { UpdateReadDto } from './dto/update-recado.dto';
+import { PaginationDto } from 'src/common/dtos/pagination.dto';
 
 @Controller('recados')
 export class RecadosController {
   constructor(private readonly recadosService: RecadosService) {}
   @HttpCode(HttpStatus.OK)
   @Get()
-  findAll() {
-    return this.recadosService.findAll();
+  async findAll() {
+    return await this.recadosService.findAll();
   }
 
   @HttpCode(HttpStatus.OK)
   @Get('q')
-  findQueryParam(@Query() pagination: any) {
-    const { limit = 10, offset = 0 } = pagination;
-    return `Essa rota retorna todos os recados limit:${limit} offset:${offset}`;
+  findQueryParam(@Query() pagination: PaginationDto) {
+    return this.recadosService.findAll(pagination);
   }
 
   @Get(':id')
-  findOne(@Param('id') parametros: number) {
+  findOne(@Param('id', ParseIntPipe) parametros: number) {
     return this.recadosService.findOne(parametros);
   }
 
@@ -41,12 +42,15 @@ export class RecadosController {
   }
 
   @Patch(':id')
-  update(@Param('id') param: number, @Body() bodyParam: UpdateReadDto) {
+  update(
+    @Param('id', ParseIntPipe) param: number,
+    @Body() bodyParam: UpdateReadDto,
+  ) {
     return this.recadosService.update(param, bodyParam);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number) {
+  remove(@Param('id', ParseIntPipe) id: number) {
     return this.recadosService.remove(id);
   }
 }

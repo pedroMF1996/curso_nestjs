@@ -33,7 +33,7 @@ GET {{baseUrl}}/recados
 ### RecadosControllerFindOne
 
 # @name RecadosControllerFindOne
-GET {{baseUrl}}/recados/100
+GET {{baseUrl}}/recados/1
 
 ### RecadosControllerFindOne
 
@@ -43,10 +43,8 @@ Content-Type: application/json
 
   {
     "texto": "Novo recado",
-    "de": "Joana",
-    "para": "joao",
-    "lido": false,
-    "data": "2024-09-14T20:22:58.216Z"
+    "deId": 4,
+    "paraId": 4
   }
 
 ### RecadosControllerFindOne
@@ -59,8 +57,7 @@ Content-Type: application/json
     "texto": "esse e um recado de teste atualizado",
     "de": "Joana",
     "para": "joao",
-    "lido": false,
-    "data": "2024-09-14T20:22:58.216Z"
+    "lido": false
   }
 
 ### RecadosControllerFindOne
@@ -73,5 +70,51 @@ DELETE {{baseUrl}}/recados/3
 
 # @name RecadosControllerFindAll
 GET {{baseUrl}}/recados/q
+?limit=100
+&offset=100
+
+### pessoasControllerFindAll
+
+# @name pessoasControllerFindAll
+GET {{baseUrl}}/pessoas
+
+### pessoasControllerFindOne
+
+# @name pessoasControllerFindOne
+GET {{baseUrl}}/pessoas/3
+
+### pessoasControllerFindOne
+
+# @name pessoasControllerInsert
+POST  {{baseUrl}}/pessoas
+Content-Type: application/json
+
+  {
+    "email":"teste@teste.com",
+    "password":"!1Vbgf",
+    "nome":"testae"
+  }
+
+### pessoasControllerFindOne
+
+# @name pessoasControllerInsert
+PATCH   {{baseUrl}}/pessoas/4
+Content-Type: application/json
+
+{
+  "password": "!1Vbgf",
+  "nome": "teste"
+}
+
+### pessoasControllerFindOne
+
+# @name PessoasControllerFindOne
+DELETE {{baseUrl}}/pessoas/3
+
+
+### pessoasControllerFindAll
+
+# @name pessoasControllerFindAll
+GET {{baseUrl}}/pessoas/q
 ?limit=100
 &offset=100
