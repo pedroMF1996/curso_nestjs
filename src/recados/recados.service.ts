@@ -19,8 +19,14 @@ export class RecadosService {
     @Inject() private readonly pessoaService: PessoasService,
   ) {}
 
-  async findAll(paginationDTO?: PaginationDto): Promise<RecadoEntity[]> {
-    const { limit = 10, offset = 0 } = paginationDTO;
+  async findAll(paginationDTO?: PaginationDto | null): Promise<RecadoEntity[]> {
+    let limit = 10;
+    let offset = 0;
+    if (paginationDTO) {
+      limit = paginationDTO.limit;
+      offset = paginationDTO.offset;
+    }
+
     const recados = await this.recadosRepository.find({
       take: limit,
       skip: offset,
