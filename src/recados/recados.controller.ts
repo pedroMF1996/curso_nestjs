@@ -20,8 +20,10 @@ import { PipeIntIdPipe } from 'src/common/pipes/parse-int-id.pipe';
 import { TimingConnectionInterceptor } from 'src/common/interceptors/timing-connection.interceptor';
 import { ErrorHandlingInterceptor } from 'src/common/interceptors/error-handling.interceptor';
 import { ChangeDataInterceptor } from 'src/common/interceptors/change-data.interceptor';
+import { AuthorizationInterceptor } from 'src/common/interceptors/authorization.interceptor';
 
 @Controller('recados')
+@UseInterceptors(TimingConnectionInterceptor)
 @UseInterceptors(ErrorHandlingInterceptor)
 @UseInterceptors(ChangeDataInterceptor)
 @UsePipes(PipeIntIdPipe)
@@ -29,7 +31,7 @@ export class RecadosController {
   constructor(private readonly recadosService: RecadosService) {}
   @HttpCode(HttpStatus.OK)
   @Get()
-  @UseInterceptors(TimingConnectionInterceptor)
+  @UseInterceptors(AuthorizationInterceptor)
   async findAll() {
     return await this.recadosService.findAll();
   }

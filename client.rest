@@ -29,7 +29,7 @@ GET {{baseUrl}}/conceitos-manual/teste
 
 # @name RecadosControllerFindAll
 GET {{baseUrl}}/recados
-
+Authorization: 'Bearer AquiVemOToken'
 ### RecadosControllerFindOne
 
 # @name RecadosControllerFindOne
