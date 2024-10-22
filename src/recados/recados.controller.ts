@@ -18,8 +18,12 @@ import { UpdateReadDto } from './dto/update-recado.dto';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
 import { PipeIntIdPipe } from 'src/common/pipes/parse-int-id.pipe';
 import { TimingConnectionInterceptor } from 'src/common/interceptors/timing-connection.interceptor';
+import { ErrorHandlingInterceptor } from 'src/common/interceptors/error-handling.interceptor';
+import { ChangeDataInterceptor } from 'src/common/interceptors/change-data.interceptor';
 
 @Controller('recados')
+@UseInterceptors(ErrorHandlingInterceptor)
+@UseInterceptors(ChangeDataInterceptor)
 @UsePipes(PipeIntIdPipe)
 export class RecadosController {
   constructor(private readonly recadosService: RecadosService) {}
