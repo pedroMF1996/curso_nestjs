@@ -1,9 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { ValidationPipe } from '@nestjs/common';
+// import { SimpleMiddleware } from './common/middlewares/simple.middleware';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // app.use(SimpleMiddleware);
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true /**Remove chaves que nao estao mapeadas no dto */,
