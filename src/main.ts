@@ -16,6 +16,8 @@ async function bootstrap() {
         true /*Tenta transformar os tipos de dados de parametros e dtos */,
     }),
   );
+
+  // app.useGlobalFilters(new MyExceptionFilter());
   await app.listen(3000);
 }
 bootstrap();

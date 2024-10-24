@@ -10,6 +10,10 @@ import { RecadosModule } from 'src/recados/recados.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PessoasModule } from 'src/pessoas/pessoas.module';
 import { SimpleMiddleware } from 'src/common/middlewares/simple.middleware';
+import { MyExceptionFilter } from 'src/common/filters/exception.fitlter';
+import { APP_FILTER, APP_GUARD, APP_PIPE } from '@nestjs/core';
+import { PipeIntIdPipe } from 'src/common/pipes/parse-int-id.pipe';
+import { IsAdminGuard } from 'src/common/guards/is-admin.guard';
 
 @Module({
   imports: [
@@ -31,7 +35,12 @@ import { SimpleMiddleware } from 'src/common/middlewares/simple.middleware';
     RecadosModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    { provide: APP_FILTER, useClass: MyExceptionFilter },
+    { provide: APP_PIPE, useClass: PipeIntIdPipe },
+    { provide: APP_GUARD, useClass: IsAdminGuard },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

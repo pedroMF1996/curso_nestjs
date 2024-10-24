@@ -12,9 +12,8 @@ export class AuthorizationInterceptor implements NestInterceptor {
     context: ExecutionContext,
     next: CallHandler<any>,
   ): Observable<any> | Promise<Observable<any>> {
-    const request = context.switchToHttp().getRequest() as Request;
-    const token = request.headers['authorization']?.split(' ')[1];
-    console.log(token);
+    // const request = context.switchToHttp().getRequest() as Request;
+    // const token = request.headers['authorization']?.split(' ')[1];
     return next.handle();
   }
 }

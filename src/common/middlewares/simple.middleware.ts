@@ -4,12 +4,11 @@ import { Request, Response } from 'express';
 @Injectable()
 export class SimpleMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: (error?: Error | any) => void) {
-    console.log('Ola');
-
     if (req.headers?.authorization) {
       req['user'] = {
         nome: 'Pedro',
         sobreNome: 'Martins Falleiros',
+        role: 'admin',
       };
     }
 
@@ -19,10 +18,6 @@ export class SimpleMiddleware implements NestMiddleware {
     // return res.status(404).send({ message: 'Nao encontrado' });
     next();
 
-    console.log('Tchau');
-
-    res.on('finish', () => {
-      console.log('A conexao terminou');
-    });
+    res.on('finish', () => {});
   }
 }

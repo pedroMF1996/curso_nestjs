@@ -9,7 +9,6 @@ import {
   Patch,
   Post,
   Query,
-  Req,
   UseInterceptors,
   UsePipes,
 } from '@nestjs/common';
@@ -33,8 +32,7 @@ export class RecadosController {
   @HttpCode(HttpStatus.OK)
   @Get()
   @UseInterceptors(AuthorizationInterceptor)
-  async findAll(@Req() req) {
-    console.log(req['user']);
+  async findAll() {
     return await this.recadosService.findAll();
   }
 

@@ -18,7 +18,6 @@ export class SimpleCacheInterceptor implements NestInterceptor {
     const url = request.url;
 
     if (this.cache.has(url)) {
-      console.log('esta no cahce');
       return of(this.cache.get(url));
     }
 

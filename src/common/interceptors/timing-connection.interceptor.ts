@@ -12,7 +12,6 @@ export class TimingConnectionInterceptor implements NestInterceptor {
     context: ExecutionContext,
     next: CallHandler<any>,
   ): Promise<Observable<any>> {
-    console.log('TimingConnectionInterceptor executando ANTES');
     const now = Date.now();
 
     return next.handle().pipe(
