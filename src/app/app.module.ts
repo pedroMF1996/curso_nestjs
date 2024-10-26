@@ -14,22 +14,24 @@ import { MyExceptionFilter } from 'src/common/filters/exception.fitlter';
 import { APP_FILTER, APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { PipeIntIdPipe } from 'src/common/pipes/parse-int-id.pipe';
 import { IsAdminGuard } from 'src/common/guards/is-admin.guard';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'ep-floral-night-a5qu3qbi.us-east-2.aws.neon.tech',
-      port: 5432, // Porta padrão do PostgreSQL
-      username: 'nestdb_owner',
-      password: 'fNq5TnZX9xzj',
-      database: 'nestdb',
-      autoLoadEntities: true, //Carrega entidades sem precisar especificalas
+      host: process.env.DB_HOST,
+      port: Number(process.env.DB_PORT), // Porta padrão do PostgreSQL
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
+      autoLoadEntities: Boolean(process.env.DB_AUTO_LOAD_ENTITIES), //Carrega entidades sem precisar especificalas
       ssl: {
-        rejectUnauthorized: false, // Configuração para aceitar SSL sem verificação de certificado
+        rejectUnauthorized: Boolean(process.env.DB_SSL_REJECT_UNAUTHORIZED), // Configuração para aceitar SSL sem verificação de certificado
       },
-      synchronize: true, // Definir para false em produção
-      logging: true, // Log de consultas SQL
+      synchronize: Boolean(process.env.DB_SYNCHRONIZE), // Definir para false em produção
+      logging: Boolean(process.env.DB_LOGGING), // Log de consultas SQL
     }),
     PessoasModule,
     RecadosModule,
@@ -43,6 +45,7 @@ import { IsAdminGuard } from 'src/common/guards/is-admin.guard';
   ],
 })
 export class AppModule implements NestModule {
+  constructor() {}
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(SimpleMiddleware).forRoutes({
       path: 'recados',
