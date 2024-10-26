@@ -83,13 +83,13 @@ Authorization: Bearer {{accessToken}}
 
 # @name pessoasControllerFindOne
 GET {{baseUrl}}/pessoas/5
-
+Authorization: Bearer {{accessToken}}
 ### pessoasControllerFindOne
 
 # @name pessoasControllerInsert
 POST  {{baseUrl}}/pessoas
 Content-Type: application/json
-
+Authorization: Bearer {{accessToken}}
   {
     "email":"teste1@teste.com",
     "password":"!1Vbgf",
@@ -101,7 +101,7 @@ Content-Type: application/json
 # @name pessoasControllerInsert
 PATCH   {{baseUrl}}/pessoas/5
 Content-Type: application/json
-
+Authorization: Bearer {{accessToken}}
 {
   "password": "!1VbgfTREW",
   "nome": "teste"
@@ -111,7 +111,7 @@ Content-Type: application/json
 
 # @name PessoasControllerFindOne
 DELETE {{baseUrl}}/pessoas/3
-
+Authorization: Bearer {{accessToken}}
 
 ### pessoasControllerFindAll
 
