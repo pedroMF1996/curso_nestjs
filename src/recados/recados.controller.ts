@@ -24,7 +24,8 @@ import { ChangeDataInterceptor } from 'src/common/interceptors/change-data.inter
 import { AuthorizationInterceptor } from 'src/common/interceptors/authorization.interceptor';
 import { UrlParam } from 'src/common/params/url-param.decorator';
 import { SERVER_NAME } from 'src/common/constants/server-name.constant';
-import { ConfigService } from '@nestjs/config';
+import { ConfigType } from '@nestjs/config';
+import recadosConfig from './recados.config';
 
 @Controller('recados')
 @UseInterceptors(TimingConnectionInterceptor)
@@ -36,10 +37,11 @@ export class RecadosController {
     private readonly recadosService: RecadosService,
     @Inject(SERVER_NAME)
     private readonly serverName: string,
-    private readonly configService: ConfigService<{ DB_USERNAME: string }>,
+    @Inject(recadosConfig.KEY)
+    private readonly config: ConfigType<typeof recadosConfig>,
   ) {
-    const dataBaseUserName = configService.get<string>('DB_USERNAME');
-    console.log(dataBaseUserName);
+    console.log(config.teste1);
+    console.log(config.teste2);
   }
   @HttpCode(HttpStatus.OK)
   @Get()

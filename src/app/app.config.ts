@@ -1,4 +1,6 @@
-export default () => ({
+import { registerAs } from '@nestjs/config';
+
+export default registerAs('app', () => ({
   jwt: {},
   dataBase: {
     type: 'postgres',
@@ -15,4 +17,4 @@ export default () => ({
     logging: Boolean(process.env.DB_LOGGING), // Log de consultas SQL
   },
   environment: process.env.NodeEnv || 'development',
-});
+}));
