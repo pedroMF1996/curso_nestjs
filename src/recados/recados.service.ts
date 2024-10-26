@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, Scope } from '@nestjs/common';
 import { RecadoEntity } from './entities/recado.entity';
 import { CreateRecadoDto } from './dto/create-recado.dto';
 import { UpdateReadDto } from './dto/update-recado.dto';
@@ -8,7 +8,10 @@ import { PessoasService } from 'src/pessoas/pessoas.service';
 import { Pessoa } from 'src/pessoas/entities/pessoa.entity';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
 
-@Injectable()
+// Scope.DEFAULT => SINGLETON
+// Scope.REQUEST => SCOPPED
+// Scope.TRANSIENT => TRANSIENT
+@Injectable({ scope: Scope.DEFAULT })
 export class RecadosService {
   /**
    *

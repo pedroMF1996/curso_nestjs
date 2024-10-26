@@ -5,6 +5,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Inject,
   Param,
   Patch,
   Post,
@@ -21,6 +22,8 @@ import { TimingConnectionInterceptor } from 'src/common/interceptors/timing-conn
 import { ErrorHandlingInterceptor } from 'src/common/interceptors/error-handling.interceptor';
 import { ChangeDataInterceptor } from 'src/common/interceptors/change-data.interceptor';
 import { AuthorizationInterceptor } from 'src/common/interceptors/authorization.interceptor';
+import { UrlParam } from 'src/common/params/url-param.decorator';
+import { SERVER_NAME } from 'src/common/constants/server-name.constant';
 
 @Controller('recados')
 @UseInterceptors(TimingConnectionInterceptor)
@@ -28,11 +31,16 @@ import { AuthorizationInterceptor } from 'src/common/interceptors/authorization.
 @UseInterceptors(ChangeDataInterceptor)
 @UsePipes(PipeIntIdPipe)
 export class RecadosController {
-  constructor(private readonly recadosService: RecadosService) {}
+  constructor(
+    private readonly recadosService: RecadosService,
+    @Inject(SERVER_NAME)
+    private readonly serverName: string,
+  ) {}
   @HttpCode(HttpStatus.OK)
   @Get()
   @UseInterceptors(AuthorizationInterceptor)
-  async findAll() {
+  async findAll(@UrlParam() url) {
+    console.log(url);
     return await this.recadosService.findAll();
   }
 
