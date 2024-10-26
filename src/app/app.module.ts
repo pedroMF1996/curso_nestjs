@@ -15,10 +15,25 @@ import { APP_FILTER, APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { PipeIntIdPipe } from 'src/common/pipes/parse-int-id.pipe';
 import { IsAdminGuard } from 'src/common/guards/is-admin.guard';
 import { ConfigModule } from '@nestjs/config';
+import * as joi from '@hapi/joi';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      envFilePath: 'envs/.env',
+      validationSchema: joi.object({
+        DB_HOST: joi.required(),
+        DB_PORT: joi.number().default(5432),
+        DB_USERNAME: joi.required(),
+        DB_PASSWORD: joi.required(),
+        DB_DATABASE: joi.required(),
+        DB_AUTO_LOAD_ENTITIES: joi.number().min(0).max(1),
+        DB_SSL_REJECT_UNAUTHORIZED: joi.required(),
+        DB_SYNCHRONIZE: joi.number().min(0).max(1),
+        DB_LOGGING: joi.number().min(0).max(1),
+      }),
+      // ignoreEnvFile: true, //Quando nao se tem necessidade de se ter um arquivo .env no servidor
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
