@@ -1,6 +1,6 @@
 import { registerAs } from '@nestjs/config';
 
-export default registerAs('app', () => ({
+export const appConfig = registerAs('app', () => ({
   jwt: {},
   dataBase: {
     type: 'postgres',
@@ -17,4 +17,9 @@ export default registerAs('app', () => ({
     logging: Boolean(process.env.DB_LOGGING), // Log de consultas SQL
   },
   environment: process.env.NodeEnv || 'development',
+}));
+
+export const recadosConfig = registerAs('recadosConfig', () => ({
+  teste1: 'valor1',
+  teste2: 'valor2',
 }));

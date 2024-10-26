@@ -25,7 +25,7 @@ import { AuthorizationInterceptor } from 'src/common/interceptors/authorization.
 import { UrlParam } from 'src/common/params/url-param.decorator';
 import { SERVER_NAME } from 'src/common/constants/server-name.constant';
 import { ConfigType } from '@nestjs/config';
-import recadosConfig from './recados.config';
+import { recadosConfig } from 'src/global-config/global.config';
 
 @Controller('recados')
 @UseInterceptors(TimingConnectionInterceptor)

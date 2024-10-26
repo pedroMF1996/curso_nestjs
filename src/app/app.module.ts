@@ -15,11 +15,12 @@ import { APP_FILTER, APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { PipeIntIdPipe } from 'src/common/pipes/parse-int-id.pipe';
 import { IsAdminGuard } from 'src/common/guards/is-admin.guard';
 import { ConfigModule, ConfigType } from '@nestjs/config';
-import appConfig from './app.config';
+import { GlobalConfigModule } from 'src/global-config/global-config.module';
+import { appConfig } from 'src/global-config/global.config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    GlobalConfigModule,
     ConfigModule.forFeature(appConfig),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule.forFeature(appConfig)],

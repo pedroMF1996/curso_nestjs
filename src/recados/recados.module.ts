@@ -13,14 +13,14 @@ import {
 import { RegexFactory } from 'src/common/utils/regex/regex.factory';
 import { MyDynamicModule } from 'src/my-dynamic/my-dynamic.module';
 import { ConfigModule } from '@nestjs/config';
-import recadosConfig from './recados.config';
+import { recadosConfig } from 'src/global-config/global.config';
 
 @Module({
   imports: [
+    ConfigModule.forFeature(recadosConfig),
     TypeOrmModule.forFeature([RecadoEntity]),
     PessoasModule,
     MyDynamicModule.forRoot({ apiKey: 'aqui vem a API key', apiUrl: 'url' }),
-    ConfigModule.forFeature(recadosConfig),
   ],
   controllers: [RecadosController],
   providers: [
