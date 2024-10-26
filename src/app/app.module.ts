@@ -17,6 +17,7 @@ import { IsAdminGuard } from 'src/common/guards/is-admin.guard';
 import { ConfigModule, ConfigType } from '@nestjs/config';
 import { GlobalConfigModule } from 'src/global-config/global-config.module';
 import { appConfig } from 'src/global-config/global.config';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { appConfig } from 'src/global-config/global.config';
     //   synchronize: Boolean(process.env.DB_SYNCHRONIZE), // Definir para false em produção
     //   logging: Boolean(process.env.DB_LOGGING), // Log de consultas SQL
     // }),
+    AuthModule,
     PessoasModule,
     RecadosModule,
   ],

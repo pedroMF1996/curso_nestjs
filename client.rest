@@ -1,5 +1,5 @@
 @baseUrl = http://localhost:3000
-
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImVtYWlsIjoidGVzdGUxQHRlc3RlLmNvbSIsImlhdCI6MTcyOTk3NzAyOCwiZXhwIjoxNzI5OTgwNjI4LCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAifQ.HPjOClrEcCoXenMAFlxFtMkYHayOUuQnxO4-A9wvSBA
 ### AppControllerGetHello
 
 # @name AppControllerGetHello
@@ -77,11 +77,12 @@ GET {{baseUrl}}/recados/q
 
 # @name pessoasControllerFindAll
 GET {{baseUrl}}/pessoas
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjUsImVtYWlsIjoidGVzdGUxQHRlc3RlLmNvbSIsImlhdCI6MTcyOTk3NzE1OSwiZXhwIjoxNzI5OTgwNzU5LCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAifQ.ysz9AvwOCgzus-s6uO91rKpcsbckA3Qc_vo7GPS6noo
 
 ### pessoasControllerFindOne
 
 # @name pessoasControllerFindOne
-GET {{baseUrl}}/pessoas/3
+GET {{baseUrl}}/pessoas/5
 
 ### pessoasControllerFindOne
 
@@ -90,7 +91,7 @@ POST  {{baseUrl}}/pessoas
 Content-Type: application/json
 
   {
-    "email":"teste@teste.com",
+    "email":"teste1@teste.com",
     "password":"!1Vbgf",
     "nome":"testae"
   }
@@ -98,11 +99,11 @@ Content-Type: application/json
 ### pessoasControllerFindOne
 
 # @name pessoasControllerInsert
-PATCH   {{baseUrl}}/pessoas/4
+PATCH   {{baseUrl}}/pessoas/5
 Content-Type: application/json
 
 {
-  "password": "!1Vbgf",
+  "password": "!1VbgfTREW",
   "nome": "teste"
 }
 
@@ -118,3 +119,13 @@ DELETE {{baseUrl}}/pessoas/3
 GET {{baseUrl}}/pessoas/q
 ?limit=100
 &offset=100
+
+# AUTH
+### Login
+POST {{baseUrl}}/auth
+Content-Type: application/json
+
+{
+  "email":"teste1@teste.com",
+  "password":"!1VbgfTREW"
+}
